@@ -5,13 +5,15 @@ import javax.swing.*;
 public class IKiosk {
 
     private JPanel KioskPanel;
-    private JTextField textField1;
-    private JButton scanButton;
-    private JButton addProductButton;
+    private JTextField txtItemCode;
+    private JButton btnScan;
+    private JButton btnAddProduct;
     private JLabel lblCheckout;
     private JLabel lblStock;
     private JButton BtnAdminLogin;
-    private JButton button1;
-    private JLabel lblBasket;
+    private JButton btnCheckout;
     private JLabel lblTotal;
+    private JLabel lblBasket;
+    private JList lstStock;
+    private JList lstBasket;
 }
