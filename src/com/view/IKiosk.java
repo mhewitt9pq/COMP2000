@@ -12,6 +12,6 @@ public class IKiosk {
     private JLabel lblStock;
     private JButton BtnAdminLogin;
     private JButton button1;
-    private JPanel lblBasket;
+    private JLabel lblBasket;
     private JLabel lblTotal;
 }
