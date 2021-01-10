@@ -2,7 +2,7 @@ package com.view;
 
 import javax.swing.*;
 
-public class IKiosk {
+public class IKiosk extends JFrame{
 
     private JPanel KioskPanel;
     private JTextField txtItemCode;
@@ -16,4 +16,12 @@ public class IKiosk {
     private JLabel lblBasket;
     private JList lstStock;
     private JList lstBasket;
+    private JTextField txtAdminUsername;
+    private JTextField txtAdminPass;
+
+    public IKiosk(){
+
+    }
+
+
 }
