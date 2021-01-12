@@ -1,0 +1,5 @@
+1,Milk,8,1.5
+2,Oranges,20,0.7
+3,Tea Bags,15,1.2
+4,Mountain Dew,12,1.6
+5,Pepsi,16,1.2

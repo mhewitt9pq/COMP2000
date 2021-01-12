@@ -1,4 +1,9 @@
 package com.model;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class Item {
 
@@ -10,7 +15,8 @@ public class Item {
 
     private double price;
 
-    public Item (String inName, int inCode, int inQuantity, double inPrice){
+
+    public Item (int inCode, String inName, int inQuantity, double inPrice){
         this.name = inName;
         this.code = inCode;
         this.quantity = inQuantity;
@@ -58,11 +64,4 @@ public class Item {
     public void setPrice(double inPrice){
         this.price = inPrice;
     }
-
-
-
-
-
-
-
 }
