@@ -1,17 +1,13 @@
 package com.view;
 
 import com.model.Item;
-import com.model.StockLoad;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class IKiosk extends JFrame{
 
