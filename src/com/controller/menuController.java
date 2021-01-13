@@ -40,10 +40,8 @@ public class menuController{
     }
 
 
-
-
-
     //Function uses switch/case statement to switch between pages with the name of the page being the case.
+
 //    public static void pageSetup(String inName) throws IOException
 //    {
 //        switch (inName)
@@ -53,14 +51,19 @@ public class menuController{
 //                break;
 //        }
 //    }
+
 //    //Function to actually change the page using the switch statement
+
 //    public static void pageChange(JFrame currentPage, JFrame nextFrame){
 //        //Hiding the current page
 //        currentPage.setVisible(false);
+
 //        //Setting position of next page to same as current one
 //        nextFrame.setLocation(currentPage.getLocation());
+
 //        //Making next page visible
 //        nextFrame.setVisible(true);
+
 //        //Getting rid of the current page
 //        currentPage.dispose();
 //    }

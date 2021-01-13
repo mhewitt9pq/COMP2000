@@ -6,9 +6,8 @@ import com.controller.menuController;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
 
 public class IKiosk extends JFrame{
 
@@ -25,6 +24,7 @@ public class IKiosk extends JFrame{
     private JList lstStock;
     private JList lstBasket;
     public JOptionPane popup;
+    String fileLocation = "Resources\\Stock.txt";
 
     File text = new File("Resources\\Stock.txt");
 
@@ -33,12 +33,16 @@ public class IKiosk extends JFrame{
 
     public IKiosk(JFrame kiosk, JFrame next) {
 
+
+        showStock();
+
         btnScan.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
                 String tCode = txtItemCode.getText();
+                getCode();
 
             }
         });
@@ -48,6 +52,76 @@ public class IKiosk extends JFrame{
                 login(kiosk, lstStock);
             }
         });
+    }
+    //Function to display stock in the list on the kiosk menu
+    public void showStock(){
+        //Creating new item
+        Item newItem = new Item();
+
+        //Loading data from file
+        newItem.loadFile();
+
+        //Creating temporary array
+        Item[] tArray = new Item[0];
+
+        //Adding the stock to the array
+        tArray = newItem.stock.toArray(tArray);
+
+        ///Creating model of list to add to
+        DefaultListModel lstModel = new DefaultListModel();
+
+        //
+        for (int i = 0; i < tArray.length; i++){
+
+            lstModel.addElement(tArray[i].getCode() +" , " + tArray[i].getName() +" , " + tArray[i].getPrice() + " , " + tArray[i].getQuantity());
+        }
+        lstStock.setModel(lstModel);
+    }
+    public void getCode(){
+        //Create a list model for the basket
+        DefaultListModel lstModelBasket = (DefaultListModel) lstBasket.getModel();
+        //Defining the item attribute seperator value
+        String separator = "\\,";
+        //Defining the variable to store the correct item in
+        String matchCode;
+
+        //Using buffered reader so it takes input a character at a time.
+        try{
+            //Creating new reader instance to read file
+            BufferedReader bReader = new BufferedReader(new FileReader(text));
+            //Creating variable to store the current line in
+            String cLine = null;
+            //While the current line is not empty, keep reading in data
+            while ((cLine = bReader.readLine()) != null)
+            {
+                //Stores the item code in the string array
+                String[] attribute = cLine.split(separator);
+
+                //If the code from the first item matches the inputted code
+                if(attribute[0].equals(txtItemCode.getText()))
+                {
+                    //Storing whole item in the matchCode variable
+                    matchCode = cLine;
+
+                    //Adding the item to the basket
+                    lstModelBasket.addElement(matchCode);
+
+                    //Need to update the basket total once item is scanned
+
+                }
+
+            }
+            bReader.close();
+        }
+        //Error handling
+        catch(FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public void login(JFrame kiosk, JList stockList){
