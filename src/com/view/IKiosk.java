@@ -186,18 +186,5 @@ public class IKiosk extends JFrame{
             popup.showMessageDialog(popUp, "Admin Login Failed.", "Admin Login", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    //Takes in the item string and saparates it to get the price and then updates the total
-    public void updateTotal(String item)
-    {
-        //Variables
-        String[] tArray;
-        Float tPrice;
-        String separator = ",";
-        //Creating the array of attributes
-        tArray = item.split(separator);
-        //Only replace the number part of the price string (Includes the £ symbol)
-        tPrice = Float.parseFloat(tArray[3]);
-
-    }
 
 }
