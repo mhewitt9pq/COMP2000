@@ -16,7 +16,7 @@ public class Item {
 
     public int quantity;
 
-    public double price;
+    public String price;
 
     public String[] tArray;
 
@@ -72,11 +72,11 @@ public class Item {
         this.code = inCode;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return this.price;
     }
 
-    public void setPrice(double inPrice) {
+    public void setPrice(String inPrice) {
         this.price = inPrice;
     }
 
@@ -98,7 +98,7 @@ public class Item {
                 tItem.setCode(Integer.parseInt(tArray[0]));
                 tItem.setName(tArray[1]);
                 tItem.setQuantity(Integer.parseInt(tArray[2]));
-                tItem.setPrice(Double.parseDouble(tArray[3]));
+                tItem.setPrice(tArray[3]);
                 stock.add(tItem);
 
                 getStock();

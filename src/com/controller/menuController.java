@@ -13,8 +13,9 @@ public class menuController{
         JFrame kiosk = new JFrame("Kiosk");
         kiosk.setContentPane(new IKiosk(kiosk,oldFrame).mainPanel);
         kiosk.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        kiosk.setSize(1000, 700);
+        kiosk.setSize(700, 700);
         kiosk.setVisible(true);
+        //Will give error each launch as there is no previous panel but doesn't effect functionality.
         oldFrame.setVisible(false);
 
         Item data = new Item();
@@ -23,15 +24,15 @@ public class menuController{
     public static void startAdmin(JFrame kiosk, JList lstStock){
         JFrame adminFrame = new JFrame("Admin");
         adminFrame.setContentPane(new IAdmin(adminFrame, lstStock).mainPanel);
-        adminFrame.setSize(900,600);
+        adminFrame.setSize(700,700);
         adminFrame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         adminFrame.setVisible(true);
         kiosk.setVisible(false);
     }
-    public static void startCheckout(JList lstBasket, Float total, JFrame kiosk, JFrame checkout){
+    public static void startCheckout(JList cartList, Float total, JFrame kiosk, JFrame checkout){
         checkout = new JFrame("Checkout");
-        checkout.setContentPane(new ICheckout(lstBasket, total,kiosk,checkout).mainPanel);
-        checkout.setSize(300,300);
+        checkout.setContentPane(new ICheckout(cartList, total,kiosk,checkout).mainPanel);
+        checkout.setSize(500,500);
         checkout.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         checkout.setVisible(true);
         kiosk.setVisible(false);

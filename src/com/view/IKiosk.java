@@ -139,6 +139,10 @@ public class IKiosk extends JFrame{
         String tPrice;
         //Store the price of the item in the variable
         tPrice = item[3];
+
+        //Re storing the string without the "£" so that it can be converted to a float
+        tPrice = tPrice.replace("£", "");
+
         //Adding the total together
         total = total + Float.parseFloat(tPrice);
         //Setting the label to the new price in the correct format
@@ -181,6 +185,19 @@ public class IKiosk extends JFrame{
         {
             popup.showMessageDialog(popUp, "Admin Login Failed.", "Admin Login", JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+    //Takes in the item string and saparates it to get the price and then updates the total
+    public void updateTotal(String item)
+    {
+        //Variables
+        String[] tArray;
+        Float tPrice;
+        String separator = ",";
+        //Creating the array of attributes
+        tArray = item.split(separator);
+        //Only replace the number part of the price string (Includes the £ symbol)
+        tPrice = Float.parseFloat(tArray[3]);
+
     }
 
 }
