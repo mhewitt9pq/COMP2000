@@ -1,13 +1,12 @@
 package com.controller;
 
-import com.model.Item;
 import com.view.IKiosk;
 
-import java.io.IOException;
+import javax.swing.*;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
         menuController kiosk = new menuController();
         menuController.startKiosk(kiosk.oldFrame);
     }

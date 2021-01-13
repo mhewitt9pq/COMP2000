@@ -1,6 +1,7 @@
 package com.view;
 
 import com.model.Item;
+import com.view.IAdmin;
 import com.controller.menuController;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 
 public class IKiosk extends JFrame{
 
-    public JPanel KioskPanel;
+    public JPanel mainPanel;
     private JTextField txtItemCode;
     private JButton btnScan;
     private JButton btnAddProduct;

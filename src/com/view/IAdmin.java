@@ -11,6 +11,7 @@ public class IAdmin {
     private JButton btnEdit;
     private JButton btnDelete;
     private JButton btnAdd;
+    public JPanel mainPanel;
 
     public JFrame popUp = new JFrame();
 
@@ -18,11 +19,21 @@ public class IAdmin {
     File text = new File("Resources\\Stock.txt");
 
     public IAdmin(JFrame aFrame, JList itemList) {
+
         lstStock.setModel(new DefaultListModel());
+
         //No close on the popup
         popUp.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         loadData();
+    }
+    public void showAdmin(){
+        JFrame frame = new JFrame("Admin");
+        frame.setContentPane(this.mainPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+
     }
     private void loadData(){
 
@@ -44,7 +55,4 @@ public class IAdmin {
     }
 
 
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-    }
 }

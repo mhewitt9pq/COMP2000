@@ -2,33 +2,40 @@ package com.controller;
 
 import javax.swing.*;
 import com.view.IKiosk;
+import com.view.IAdmin;
 import com.model.*;
-import com.view.*;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class menuController{
 
     public JFrame oldFrame;
 
     public static void startKiosk(JFrame oldFrame){
-        JFrame kiosk = new JFrame("KioskView");
-        kiosk.setContentPane(new IKiosk(kiosk, oldFrame).KioskPanel);
-        kiosk.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        kiosk.setSize(500, 500);
-        kiosk.setVisible(true);
-        oldFrame.setVisible(false);
+
+        JFrame frame = new JFrame("Kiosk");
+        frame.setContentPane(new IKiosk(frame,frame).mainPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+
+
+
+
+//        JFrame kiosk = new JFrame("KioskView");
+//        kiosk.setContentPane(new IKiosk(kiosk, oldFrame).mainPanel);
+//        kiosk.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        kiosk.setSize(500, 500);
+//        kiosk.setVisible(true);
+//        oldFrame.setVisible(false);
 
         Item data = new Item();
         data.loadFile();
     }
     public static void startAdmin(JFrame kiosk, JList lstStock){
-        JFrame aFrame = new JFrame("AdminView");
-        aFrame.setContentPane(new IAdmin(aFrame, lstStock).panel1);
-        aFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        aFrame.setSize(500, 500);
-        aFrame.setVisible(true);
+        JFrame adminFrame = new JFrame("Admin");
+        adminFrame.setContentPane(new IAdmin(adminFrame, lstStock).mainPanel);
+        adminFrame.setSize(900,600);
+        adminFrame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        adminFrame.setVisible(true);
         kiosk.setVisible(false);
     }
 
