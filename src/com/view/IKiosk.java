@@ -26,8 +26,6 @@ public class IKiosk extends JFrame{
     public JList lstBasket;
     public JOptionPane popup;
     public Float total = 0.0f;
-    public DecimalFormat dFormat = new DecimalFormat("#.##");
-    String fileLocation = "Resources\\Stock.txt";
 
     File text = new File("Resources\\Stock.txt");
 
@@ -55,7 +53,14 @@ public class IKiosk extends JFrame{
                 login(kiosk, lstStock);
             }
         });
+        btnCheckout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuController.startCheckout(lstBasket, total ,kiosk ,next);
+            }
+        });
     }
+
     //Function to display stock in the list on the kiosk menu
     public void showStock(){
         //Creating new item

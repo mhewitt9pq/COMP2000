@@ -1,8 +1,7 @@
 package com.controller;
 
 import javax.swing.*;
-import com.view.IKiosk;
-import com.view.IAdmin;
+import com.view.*;
 import com.model.*;
 
 public class menuController{
@@ -11,21 +10,12 @@ public class menuController{
 
     public static void startKiosk(JFrame oldFrame){
 
-        JFrame frame = new JFrame("Kiosk");
-        frame.setContentPane(new IKiosk(frame,frame).mainPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-
-
-
-
-//        JFrame kiosk = new JFrame("KioskView");
-//        kiosk.setContentPane(new IKiosk(kiosk, oldFrame).mainPanel);
-//        kiosk.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        kiosk.setSize(500, 500);
-//        kiosk.setVisible(true);
-//        oldFrame.setVisible(false);
+        JFrame kiosk = new JFrame("Kiosk");
+        kiosk.setContentPane(new IKiosk(kiosk,oldFrame).mainPanel);
+        kiosk.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        kiosk.setSize(1000, 700);
+        kiosk.setVisible(true);
+        oldFrame.setVisible(false);
 
         Item data = new Item();
         data.loadFile();
@@ -36,6 +26,14 @@ public class menuController{
         adminFrame.setSize(900,600);
         adminFrame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         adminFrame.setVisible(true);
+        kiosk.setVisible(false);
+    }
+    public static void startCheckout(JList lstBasket, Float total, JFrame kiosk, JFrame checkout){
+        checkout = new JFrame("Checkout");
+        checkout.setContentPane(new ICheckout(lstBasket, total,kiosk,checkout).mainPanel);
+        checkout.setSize(300,300);
+        checkout.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        checkout.setVisible(true);
         kiosk.setVisible(false);
     }
 
