@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class IKiosk extends JFrame{
@@ -25,6 +26,7 @@ public class IKiosk extends JFrame{
     public JList lstBasket;
     public JOptionPane popup;
     public Float total = 0.0f;
+    public DecimalFormat dFormat = new DecimalFormat("#.##");
     String fileLocation = "Resources\\Stock.txt";
 
     File text = new File("Resources\\Stock.txt");
@@ -126,16 +128,18 @@ public class IKiosk extends JFrame{
             e.printStackTrace();
         }
     }
+
     public void updateTotal(String[] item){
         //Define temp price variable
         String tPrice;
         //Store the price of the item in the variable
         tPrice = item[3];
-        //Add
+        //Adding the total together
         total = total + Float.parseFloat(tPrice);
-
-        lblTotal.setText("£" + total);
+        //Setting the label to the new price in the correct format
+        lblTotal.setText("£" + String.format("%.2f", total));
     }
+
     public void login(JFrame kiosk, JList stockList){
         JFrame popUp = new JFrame();
         popUp.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
