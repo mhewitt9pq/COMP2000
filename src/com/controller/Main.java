@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        IKiosk kiosk = new IKiosk();
-        menuController.openKiosk();
+        menuController kiosk = new menuController();
+        menuController.startKiosk(kiosk.oldFrame);
     }
 }
