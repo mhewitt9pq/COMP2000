@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import com.controller.menuController;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class ICheckout {
     public JPanel mainPanel;
@@ -75,7 +77,10 @@ public class ICheckout {
     //Cash payment
     public void cashPayment()
     {
+        //Defining values and setting formats for the datetime on receipt
         Float tTotal = 0.00f;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
 
         //Create popup for cash input
         JFrame cashPopup = new JFrame();
@@ -94,15 +99,15 @@ public class ICheckout {
 
         //If statement to check they entered right amount
         if (tCash >= tTotal) {
+            //Calculate change
             change = tCash - tTotal;
-            receipt = "Brandon's Bananas & More \n" +
-                    "Date: " +
-                    "Time: " +
-                    "Receipt: \n" +
-                    "Items: " + lstCheckoutBasket.getModel().toString() + "\n" +
-                    "Total: " + lblTotalTxt.getText() + "\n" +
-                    "Cash given: £" + tCash + "\n" +
-                    "Change: " + (String.format("£" + "%.2f",change));
+            //Storing receipt with relevant info to be used later
+            receipt = "----------Tescos---------- \n" +
+                    "Date and Time:  " + dtf.format(now) + "\n" +
+                    "Items:  " + lstCheckoutBasket.getModel().toString() + "\n" +
+                    "Total:  " + lblTotalTxt.getText() + "\n" +
+                    "Amount paid:  £" + tCash + "\n" +
+                    "Change:  " + (String.format("£" + "%.2f",change));
         } else {
             checkoutPopup.showMessageDialog(cashPopup, "Not enough money. Please enter more");
         }
