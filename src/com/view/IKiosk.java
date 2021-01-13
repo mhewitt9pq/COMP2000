@@ -22,8 +22,9 @@ public class IKiosk extends JFrame{
     private JLabel lblTotal;
     private JLabel lblBasket;
     private JList lstStock;
-    private JList lstBasket;
+    public JList lstBasket;
     public JOptionPane popup;
+    public Float total = 0.0f;
     String fileLocation = "Resources\\Stock.txt";
 
     File text = new File("Resources\\Stock.txt");
@@ -32,18 +33,18 @@ public class IKiosk extends JFrame{
     private ArrayList<Item> Stock = new ArrayList<>();
 
     public IKiosk(JFrame kiosk, JFrame next) {
-
-
+        //Running function to display stock on kiosk page
         showStock();
+        lstBasket.setModel(new DefaultListModel());
+
+
 
         btnScan.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                String tCode = txtItemCode.getText();
                 getCode();
-
             }
         });
         btnAdmin.addActionListener(new ActionListener() {
@@ -81,7 +82,7 @@ public class IKiosk extends JFrame{
         //Create a list model for the basket
         DefaultListModel lstModelBasket = (DefaultListModel) lstBasket.getModel();
         //Defining the item attribute seperator value
-        String separator = "\\,";
+        String separator = ",";
         //Defining the variable to store the correct item in
         String matchCode;
 
@@ -107,9 +108,11 @@ public class IKiosk extends JFrame{
                     lstModelBasket.addElement(matchCode);
 
                     //Need to update the basket total once item is scanned
+                    //pass object into update total. not the price.
+
+                    updateTotal(attribute);
 
                 }
-
             }
             bReader.close();
         }
@@ -123,7 +126,16 @@ public class IKiosk extends JFrame{
             e.printStackTrace();
         }
     }
+    public void updateTotal(String[] item){
+        //Define temp price variable
+        String tPrice;
+        //Store the price of the item in the variable
+        tPrice = item[3];
+        //Add
+        total = total + Float.parseFloat(tPrice);
 
+        lblTotal.setText("£" + total);
+    }
     public void login(JFrame kiosk, JList stockList){
         JFrame popUp = new JFrame();
         popUp.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
