@@ -4,4 +4,3 @@
 4,Mountain Dew,9,£1.95
 5,Pepsi,18,£0.99
 6,Cheese Twists,15,£4.50
-7,Stick,19,£1.20

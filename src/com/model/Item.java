@@ -99,6 +99,10 @@ public class Item
     {
         stock.add(newItem);
     }
+    public void deleteItem(Item delItem)
+    {
+        stock.remove(delItem);
+    }
 
 
     public void loadFile()

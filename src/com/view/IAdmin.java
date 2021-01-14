@@ -139,7 +139,70 @@ public class IAdmin {
 
     public void deleteStock()
     {
+        //Using same popup box method for data as the addStock() function
+        //Define variables for index and labels to display item being deleted
+        int index;
 
+        //Get the selected item from lst
+        index = lstStock.getSelectedIndex();
+
+        //Temp item object
+        Item tStock = new Item();
+
+        //Loading in data
+        tStock.loadFile();
+
+        //Getting item using index and storing it in temp item created
+        Item tItem = tStock.geItemFromStock(index);
+
+        //Storing each attribute as a string for JOption display
+        String tCode = tItem.getCode();
+        String tName = tItem.getName();
+        String tQuantity = tItem.getQuantity().toString();
+        String tPrice = tItem.getPrice();
+
+
+        Object[] message =
+                {
+                        "Please confirm you want to delete this product from the stock database. This action cannot be undone! ",
+                        "Item code: "+  tCode,
+                        "Item Name: "+  tName,
+                        "Stock: "+  tQuantity,
+                        "Price: "+ tPrice
+                };
+
+        int yesNo = popUpOption.showConfirmDialog(popUp, message, "Delete Stock", JOptionPane.INFORMATION_MESSAGE);
+
+        //If the option is yes
+        if(yesNo == popUpOption.OK_OPTION)
+        {
+            //Function to delete item
+            deleteItem();
+            popUpOption.showMessageDialog(popUp, "Item successfully deleted", "Attention", JOptionPane.INFORMATION_MESSAGE);
+
+
+            loadData();
+        }
+        //Error handling
+        else
+        {
+            popUpOption.showMessageDialog(popUp, "Product deletion failed!" , "Attention", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    public void deleteItem()
+    {
+        //New item
+        Item tItem = new Item();
+
+        //Loading stock
+        tItem.loadFile();
+
+        //Gets item to delete
+        Item delItem = tItem.geItemFromStock(lstStock.getSelectedIndex());
+
+        tItem.deleteItem(delItem);
+
+        updateFile(tItem);
     }
 
     public void showAdmin()
