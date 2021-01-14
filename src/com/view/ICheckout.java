@@ -11,7 +11,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class ICheckout {
+public class ICheckout
+{
     public JPanel mainPanel;
     private JButton btnCash;
     private JButton btnCard;
@@ -45,17 +46,21 @@ public class ICheckout {
         lblTotalTxt.setText("£" + String.format("%.2f", tTotal));
 
         //Adding back button function
-        btnBack.addActionListener(new ActionListener() {
+        btnBack.addActionListener(new ActionListener()
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 menuController.startKiosk(checkout);
             }
         });
 
         //Functionality for the print receipt button
-        btnPrint.addActionListener(new ActionListener() {
+        btnPrint.addActionListener(new ActionListener()
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
 
                 printReceipt();
 
@@ -63,17 +68,21 @@ public class ICheckout {
         });
 
         //Functionality for the card payment option
-        btnCard.addActionListener(new ActionListener() {
+        btnCard.addActionListener(new ActionListener()
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 cardPayment();
             }
         });
 
         //Functionality for the cash payment option
-        btnCash.addActionListener(new ActionListener() {
+        btnCash.addActionListener(new ActionListener()
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 cashPayment();
             }
         });
@@ -135,7 +144,8 @@ public class ICheckout {
         tTotal = Float.parseFloat(tSTotal);
 
         //If statement to check they entered right amount
-        if (tCash >= tTotal) {
+        if (tCash >= tTotal)
+        {
             //Calculate change
             change = tCash - tTotal;
             //Storing receipt with relevant info to be used later
@@ -148,6 +158,7 @@ public class ICheckout {
                     "Have a nice day :)";
             updateStock();
         }
+
         else
         {
             checkoutPopup.showMessageDialog(cashPopup, "Not enough money. Please enter more");
@@ -199,7 +210,8 @@ public class ICheckout {
                 String tCode = currentItem.getCode();
 
                 //Check for a match
-                if (tCode.equals(code)){
+                if (tCode.equals(code))
+                {
                     //If there is a match, decrease the quantity of the item by one
                     itemArray.stock.get(j).setQuantity(currentItem.getQuantity() - 1);
 
@@ -261,7 +273,6 @@ public class ICheckout {
 
                 fileWriter.write(tInfo);
             }
-
             //Closing writer
             fileWriter.close();
         }

@@ -41,6 +41,18 @@ public class Item
         String basketInfo = new String(name + " £" + price);
         return basketInfo;
     }
+    //Gets specific item from stock using selected index of list
+    public Item geItemFromStock(int inIndex)
+    {
+        //If the index  passed in is not within the scope of the range then return null
+        if(inIndex >= stock.size())
+        {
+            return null;
+        }
+
+        //If selected index has an item location, return the item in that location
+        return stock.get(inIndex);
+    }
 
     //Getters and setters
     public String getName()
@@ -91,12 +103,14 @@ public class Item
 
     public void loadFile()
     {
-        try {
+        try
+        {
             File file = new File(fileLocation);
 
             Scanner scanner = new Scanner(file);
 
-            while (scanner.hasNextLine()) {
+            while (scanner.hasNextLine())
+            {
                 //Gets next line and stores as string
                 String itemLine = scanner.nextLine();
 

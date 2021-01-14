@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.controller.menuController;
 import com.model.Item;
 public class IAdmin {
 
@@ -32,17 +33,118 @@ public class IAdmin {
         //No close on the popup
         popUp.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
+        //Loads in the data from file
         loadData();
 
-        btnAdd.addActionListener(new ActionListener() {
+        btnAdd.addActionListener(new ActionListener()
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 addStock();
             }
         });
+
+        btnEdit.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                editStock();
+            }
+        });
+
+        btnDelete.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                deleteStock();
+            }
+        });
+        btnExit.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                //Opens kiosk
+                menuController.startKiosk(aFrame);
+            }
+        });
     }
+    //Function for editing stock
+    public void editStock()
+    {
+        //Using same popup box method for text input as the addStock() function
+        //Define variables for index and text input
+        int index;
+        JTextField txtCode = new JTextField();
+        JTextField txtName = new JTextField();
+        JTextField txtQuantity = new JTextField();
+        JTextField txtPrice = new JTextField();
+
+        //Get the selected item from lst
+        index = lstStock.getSelectedIndex();
+
+        //Temp item object
+        Item tStock = new Item();
+
+        //Loading in data
+        tStock.loadFile();
+
+        //Getting item using index and storing it in temp item created
+        Item tItem = tStock.geItemFromStock(index);
+
+        Object[] message =
+                {
+                        "Item code:  ", txtCode,
+                        "Item Name:  ", txtName,
+                        "Stock:  ", txtQuantity,
+                        "Price:  (Please use £0.00 format  ", txtPrice
+
+                };
+
+        int yesNo = popUpOption.showConfirmDialog(popUp, message, "Edit Stock", JOptionPane.INFORMATION_MESSAGE);
+
+        //If the option is yes
+        if(yesNo == popUpOption.OK_OPTION)
+        {
+            //And if all fields are not empty
+            if(txtCode != null && txtName != null && txtQuantity != null && txtPrice != null)
+            {
+                //Add a new item passing through data in text fields
+                editItem(txtCode.getText(), txtName.getText(), txtQuantity.getText(), txtPrice.getText());
+
+                //popup window to notify user edit was sucessful
+                popUpOption.showMessageDialog(popUp, "Edit Successful", "Edit Stock", JOptionPane.INFORMATION_MESSAGE);
+
+                //Load file
+                loadData();
+
+                //Console message for testing
+                System.out.println("Product edited");
+            }
+            //Error handling
+            else
+            {
+                popUpOption.showMessageDialog(popUp, "All information required!", "Attention", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        //Error handling
+        else
+        {
+            popUpOption.showMessageDialog(popUp, "Product edit failed!" , "Attention", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    public void deleteStock()
+    {
+
+    }
+
     public void showAdmin()
     {
+        //Opens the admin pane and closes the old one
         JFrame frame = new JFrame("Admin");
         frame.setContentPane(this.mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,7 +154,6 @@ public class IAdmin {
     }
     private void loadData()
     {
-
         Item newItem = new Item();
         //Loading stock from file
         newItem.loadFile();
@@ -63,8 +164,8 @@ public class IAdmin {
         DefaultListModel lstModel = new DefaultListModel();
 
         int length = tArray.length;
-        for (int i = 0; i < length; i++)
 
+        for (int i = 0; i < length; i++)
         {
 
             lstModel.addElement(tArray[i].getCode() +"," + tArray[i].getName() + "," + tArray[i].getPrice() + "," + tArray[i].getQuantity());
@@ -72,26 +173,31 @@ public class IAdmin {
         lstStock.setModel(lstModel);
     }
 
-    public void addStock(){
+    public void addStock()
+    {
+        //Adding variables for item attributes to be stored in
         JTextField txtCode = new JTextField();
         JTextField txtName = new JTextField();
         JTextField txtQuantity = new JTextField();
         JTextField txtPrice = new JTextField();
 
-        Object[] message = {
+        Object[] message =
+                {
                 "Item code:  ", txtCode,
                 "Item Name:  ", txtName,
                 "Stock:  ", txtQuantity,
-                "Price:  £", txtPrice
+                "Price:  (Please use £0.00 format  ", txtPrice
 
         };
 
         int op = popUpOption.showConfirmDialog(popUp, message, "Add an item", JOptionPane.INFORMATION_MESSAGE);
 
         //If the option is yes
-        if(op == popUpOption.OK_OPTION){
+        if(op == popUpOption.OK_OPTION)
+        {
             //And if all fields are not empty
-            if(txtCode != null && txtName != null && txtQuantity != null && txtPrice != null){
+            if(txtCode != null && txtName != null && txtQuantity != null && txtPrice != null)
+            {
                 //Add a new item passing through data in text fields
                 addItem(txtCode.getText(), txtName.getText(), txtQuantity.getText(), txtPrice.getText());
                 //Load file
@@ -100,12 +206,14 @@ public class IAdmin {
                 System.out.println("Product added");
             }
             //Error handling
-            else{
+            else
+            {
                 popUpOption.showMessageDialog(popUp, "All information required!", "Attention", JOptionPane.INFORMATION_MESSAGE);
             }
         }
         //Error handling
-        else{
+        else
+        {
             popUpOption.showMessageDialog(popUp, "Product addtion failed!" , "Attention", JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -129,6 +237,26 @@ public class IAdmin {
 
         //Saves the new item to the stock text file
         updateFile(newItem);
+    }
+    public void editItem( String inCode, String inName, String inQuant, String inPrice)
+    {
+        //Creating temporary item
+        Item tItem = new Item();
+
+        //Loading in data
+        tItem.loadFile();
+
+        //Getting the item selected
+        Item editTItem = tItem.geItemFromStock(lstStock.getSelectedIndex());
+
+        //Setting the attributes of item as ones passed in to editItem method
+        editTItem.setCode(inCode);
+        editTItem.setName(inName);
+        editTItem.setQuantity(Integer.parseInt(inQuant));
+        editTItem.setPrice(inPrice);
+
+        //Updates the file with the newly edited item
+        updateFile(tItem);
     }
     public void updateFile(Item tempItem)
     {

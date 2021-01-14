@@ -8,19 +8,21 @@ public class menuController{
 
     public JFrame oldFrame;
 
-    public static void startKiosk(JFrame oldFrame){
+    public static void startKiosk(JFrame oldFrame)
+    {
 
         JFrame kiosk = new JFrame("Kiosk");
         kiosk.setContentPane(new IKiosk(kiosk,oldFrame).mainPanel);
         kiosk.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        kiosk.setSize(700, 700);
+        kiosk.setSize(500, 300);
         kiosk.setVisible(true);
         //Will give error each launch as there is no previous panel but doesn't effect functionality.
-
+        oldFrame.setVisible(false);
         Item data = new Item();
         data.loadFile();
     }
-    public static void startAdmin(JFrame kiosk, JList lstStock){
+    public static void startAdmin(JFrame kiosk, JList lstStock)
+    {
         JFrame adminFrame = new JFrame("Admin");
         adminFrame.setContentPane(new IAdmin(adminFrame, lstStock).mainPanel);
         adminFrame.setSize(700,700);
@@ -28,7 +30,8 @@ public class menuController{
         adminFrame.setVisible(true);
         kiosk.setVisible(false);
     }
-    public static void startCheckout(JList cartList, Float total, JFrame kiosk, JFrame checkout){
+    public static void startCheckout(JList cartList, Float total, JFrame kiosk, JFrame checkout)
+    {
         checkout = new JFrame("Checkout");
         checkout.setContentPane(new ICheckout(cartList, total,kiosk,checkout).mainPanel);
         checkout.setSize(500,500);
@@ -39,7 +42,6 @@ public class menuController{
 
 
     //Function uses switch/case statement to switch between pages with the name of the page being the case.
-
 //    public static void pageSetup(String inName) throws IOException
 //    {
 //        switch (inName)
