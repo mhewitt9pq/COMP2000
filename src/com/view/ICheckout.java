@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import com.controller.menuController;
+import com.model.Item;
+
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
@@ -29,6 +31,7 @@ public class ICheckout {
     String receipt;
 
     File text = new File("Resources\\Stock.txt");
+    public String separator = ",";
 
     public ICheckout(JList cartList, Float tTotal, JFrame kiosk, JFrame checkout)
     {
@@ -98,6 +101,7 @@ public class ICheckout {
                     "Total:  " + lblTotalTxt.getText() + "\n" +
                     "Card payment verified" + "\n" +
                     "Have a nice day :)";
+            updateStock();
         }
         else
         {
@@ -141,6 +145,7 @@ public class ICheckout {
                     "Amount paid:  £" + tCash + "\n" +
                     "Change:  " + (String.format("£" + "%.2f",change)) + "\n" +
                     "Have a nice day :)";
+            updateStock();
         }
         else
         {
@@ -155,5 +160,37 @@ public class ICheckout {
         checkoutPopup.showMessageDialog(popFrame, receipt, "Receipt", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    public void updateStock()
+    {
+        //Creating item to use
+        Item itemArray = new Item();
+
+        //Creting model of basket with items in
+        DefaultListModel lstMPurchase = (DefaultListModel) lstCheckoutBasket.getModel();
+
+        //Get number of items in basket
+        int basketSize = lstMPurchase.size();
+
+        //For each item in basket
+        for (int i = 0; i < basketSize; i++)
+        {
+
+            //Gets the item each time incrementing
+            String getAttribute = (String) lstMPurchase.getElementAt(i);
+
+
+            String[] tArray = getAttribute.split(separator);
+
+            //Gets the code of each item to find match
+            String code = tArray[0];
+
+            //For size of
+            for (int j = 0; j < itemArray.stock.size(); j++)
+            {
+
+            }
+
+        }
+    }
 }
 

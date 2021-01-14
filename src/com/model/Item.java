@@ -8,7 +8,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.lang.reflect.Array;
 
-public class Item {
+public class Item
+{
 
     public String name;
 
@@ -34,54 +35,71 @@ public class Item {
 //    }
 
     //Method to get all info about item excluding the code and return as string. To display on the kiosk.
-    public String allInfo() {
+    public String allInfo()
+    {
         String info = new String(name + " £" + price + " (" + quantity + " in stock)");
         return info;
     }
-    public String[] getStock(){
+    public String[] getStock()
+    {
         return tArray;
     }
 
-    public String basketInfo() {
+    public String basketInfo()
+    {
         String basketInfo = new String(name + " £" + price);
         return basketInfo;
     }
 
     //Getters and setters
-    public String getName() {
+    public String getName()
+    {
         return this.name;
     }
 
-    public void setName(String inName) {
+    public void setName(String inName)
+    {
         this.name = inName;
     }
 
-    public int getQuantity() {
+    public int getQuantity()
+    {
         return this.quantity;
     }
 
-    public void setQuantity(int inQuantity) {
+    public void setQuantity(int inQuantity)
+    {
         this.quantity = inQuantity;
     }
 
-    public int getCode() {
+    public int getCode()
+    {
         return this.code;
     }
 
-    public void setCode(int inCode){
+    public void setCode(int inCode)
+    {
         this.code = inCode;
     }
 
-    public String getPrice() {
+    public String getPrice()
+    {
         return this.price;
     }
 
-    public void setPrice(String inPrice) {
+    public void setPrice(String inPrice)
+    {
         this.price = inPrice;
     }
 
+    public void addNewItem(Item newItem)
+    {
+        stock.add(newItem);
+    }
 
-    public void loadFile() {
+
+    public void loadFile()
+    {
         try {
             File file = new File(fileLocation);
 
@@ -107,7 +125,9 @@ public class Item {
             scanner.close();
 
             System.out.println("File loaded");
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e)
+        {
             System.out.println("File not loaded");
             e.printStackTrace();
         }
