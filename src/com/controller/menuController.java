@@ -17,7 +17,7 @@ public class menuController{
         kiosk.setSize(500, 300);
         kiosk.setVisible(true);
         //Will give error each launch as there is no previous panel but doesn't effect functionality.
-        oldFrame.setVisible(false);
+        //oldFrame.setVisible(false);
         Item data = new Item();
         data.loadFile();
     }
