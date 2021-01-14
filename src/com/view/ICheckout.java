@@ -9,6 +9,7 @@ import com.model.Item;
 
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class ICheckout {
     public JPanel mainPanel;
@@ -162,8 +163,12 @@ public class ICheckout {
 
     public void updateStock()
     {
+
         //Creating item to use
         Item itemArray = new Item();
+
+        //Loading in the data
+        itemArray.loadFile();
 
         //Creting model of basket with items in
         DefaultListModel lstMPurchase = (DefaultListModel) lstCheckoutBasket.getModel();
@@ -184,12 +189,86 @@ public class ICheckout {
             //Gets the code of each item to find match
             String code = tArray[0];
 
-            //For size of
+            //For size of the current stock
             for (int j = 0; j < itemArray.stock.size(); j++)
             {
+                //Get code of each item
+                Item currentItem = itemArray.stock.get(j);
 
+                //Store code of each item
+                String tCode = currentItem.getCode();
+
+                //Check for a match
+                if (tCode.equals(code)){
+                    //If there is a match, decrease the quantity of the item by one
+                    itemArray.stock.get(j).setQuantity(currentItem.getQuantity() - 1);
+
+                    updateStock(itemArray);
+                }
             }
 
+        }
+    }
+
+    public void updateStock(Item tempItem)
+    {
+        //Creating a temporary stock array to duplicate the items to store
+        ArrayList<Item> tStock = new ArrayList<>();
+
+        //Setting the temp stock as the current stock of item passed in
+        tStock = tempItem.stock;
+
+        try
+        {
+            //Opening filewriter connection so I can write to file (update stock)
+            FileWriter  fileWriter= new FileWriter(text);
+
+            //For each item in the stock
+            for(int i = 0; i < tStock.size(); i++)
+            {
+                //Initialising variables
+                String tInfo = "";
+                String tCode;
+                String tName;
+                //String tQuantity;
+                String tPrice;
+
+                //If i is greater than 0 (Every iteration except the first) insert a return into the file
+                if(i >= 1)
+                {
+                    tInfo = "\n";
+                }
+
+                //Getting code of item
+                tCode = tStock.get(i).getCode();
+                //Adding code to first section of string. Also adds the separator value (,)
+                tInfo += tCode + ",";
+
+                //Getting name of item
+                tName = tStock.get(i).getName();
+                //Adding name to second section of string. Also adds the separator value (,)
+                tInfo += tName + ",";
+
+                //Getting quantity of item
+                String tQuantity = tStock.get(i).getQuantity().toString();
+                //Adding quantity to third section of string. Also adds the separator value (,)
+                tInfo += tQuantity + ",";
+
+                //Getting price of item
+                tPrice = tStock.get(i).getPrice();
+                //Adding price to final section of string. Also adds the separator value (,)
+                tInfo += tPrice;
+
+                fileWriter.write(tInfo);
+            }
+
+            //Closing writer
+            fileWriter.close();
+        }
+        //Error handling
+        catch(IOException e)
+        {
+            e.printStackTrace();
         }
     }
 }

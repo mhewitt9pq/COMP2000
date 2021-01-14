@@ -121,7 +121,7 @@ public class IAdmin {
         //Creating adding attributes to new item using setters
         newItem.setCode(inCode);
         newItem.setName(inName);
-        newItem.setQuantity(inQuantity);
+        newItem.setQuantity(Integer.parseInt(inQuantity));
         newItem.setPrice(inPrice);
 
         //Adding new item to stock
@@ -133,10 +133,10 @@ public class IAdmin {
     public void updateFile(Item tempItem)
     {
         //Creating a temporary stock array to duplicate the items to store
-        ArrayList<Item> tempStock = new ArrayList<>();
+        ArrayList<Item> tStock = new ArrayList<>();
 
         //Setting the temp stock as the current stock of item passed in
-        tempStock = tempItem.stock;
+        tStock = tempItem.stock;
 
         try
         {
@@ -144,43 +144,45 @@ public class IAdmin {
             FileWriter  fileWriter= new FileWriter(text);
 
             //For each item in the stock
-            for(int i = 0; i < tempStock.size(); i++)
+            for(int i = 0; i < tStock.size(); i++)
             {
                 //Initialising variables
                 String tInfo = "";
                 String tCode;
                 String tName;
-                String tQuantity;
+                //String tQuantity;
                 String tPrice;
 
                 //If i is greater than 0 (Every iteration except the first) insert a return into the file
-                if(i > 0)
+                if(i >= 1)
                 {
                     tInfo = "\n";
                 }
 
                 //Getting code of item
-                tCode = tempStock.get(i).getCode();
+                tCode = tStock.get(i).getCode();
                 //Adding code to first section of string. Also adds the separator value (,)
                 tInfo += tCode + ",";
 
                 //Getting name of item
-                tName = tempStock.get(i).getName();
+                tName = tStock.get(i).getName();
                 //Adding name to second section of string. Also adds the separator value (,)
                 tInfo += tName + ",";
 
                 //Getting quantity of item
-                tQuantity = tempStock.get(i).getQuantity();
+                String tQuantity = tStock.get(i).getQuantity().toString();
                 //Adding quantity to third section of string. Also adds the separator value (,)
                 tInfo += tQuantity + ",";
 
                 //Getting price of item
-                tPrice = tempStock.get(i).getPrice();
+                tPrice = tStock.get(i).getPrice();
                 //Adding price to final section of string. Also adds the separator value (,)
                 tInfo += tPrice;
 
                 fileWriter.write(tInfo);
             }
+
+            //Closing writer
             fileWriter.close();
         }
         //Error handling

@@ -15,7 +15,7 @@ public class Item
 
     public String code;
 
-    public String quantity;
+    public int quantity;
 
     public String price;
 
@@ -53,12 +53,12 @@ public class Item
         this.name = inName;
     }
 
-    public String getQuantity()
+    public Integer getQuantity()
     {
         return this.quantity;
     }
 
-    public void setQuantity(String inQuantity)
+    public void setQuantity(int inQuantity)
     {
         this.quantity = inQuantity;
     }
@@ -106,7 +106,7 @@ public class Item
 
                 tItem.setCode(tArray[0]);
                 tItem.setName(tArray[1]);
-                tItem.setQuantity(tArray[2]);
+                tItem.setQuantity(Integer.parseInt(tArray[2]));
                 tItem.setPrice(tArray[3]);
                 stock.add(tItem);
 
