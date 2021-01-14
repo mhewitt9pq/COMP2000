@@ -1,7 +1,12 @@
 package com.view;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.model.Item;
@@ -28,6 +33,13 @@ public class IAdmin {
         popUp.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         loadData();
+
+        btnAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addStock();
+            }
+        });
     }
     public void showAdmin()
     {
@@ -107,15 +119,16 @@ public class IAdmin {
         newItem.loadFile();
 
         //Creating adding attributes to new item using setters
-        newItem.setCode(Integer.parseInt(inCode));
+        newItem.setCode(inCode);
         newItem.setName(inName);
-        newItem.setQuantity(Integer.parseInt(inQuantity));
+        newItem.setQuantity(inQuantity);
         newItem.setPrice(inPrice);
 
         //Adding new item to stock
         newItem.addNewItem(newItem);
 
         //Saves the new item to the stock text file
+        updateFile(newItem);
     }
     public void updateFile(Item tempItem)
     {
@@ -124,5 +137,56 @@ public class IAdmin {
 
         //Setting the temp stock as the current stock of item passed in
         tempStock = tempItem.stock;
+
+        try
+        {
+            //Opening filewriter connection so I can write to file (update stock)
+            FileWriter  fileWriter= new FileWriter(text);
+
+            //For each item in the stock
+            for(int i = 0; i < tempStock.size(); i++)
+            {
+                //Initialising variables
+                String tInfo = "";
+                String tCode;
+                String tName;
+                String tQuantity;
+                String tPrice;
+
+                //If i is greater than 0 (Every iteration except the first) insert a return into the file
+                if(i > 0)
+                {
+                    tInfo = "\n";
+                }
+
+                //Getting code of item
+                tCode = tempStock.get(i).getCode();
+                //Adding code to first section of string. Also adds the separator value (,)
+                tInfo += tCode + ",";
+
+                //Getting name of item
+                tName = tempStock.get(i).getName();
+                //Adding name to second section of string. Also adds the separator value (,)
+                tInfo += tName + ",";
+
+                //Getting quantity of item
+                tQuantity = tempStock.get(i).getQuantity();
+                //Adding quantity to third section of string. Also adds the separator value (,)
+                tInfo += tQuantity + ",";
+
+                //Getting price of item
+                tPrice = tempStock.get(i).getPrice();
+                //Adding price to final section of string. Also adds the separator value (,)
+                tInfo += tPrice;
+
+                fileWriter.write(tInfo);
+            }
+            fileWriter.close();
+        }
+        //Error handling
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

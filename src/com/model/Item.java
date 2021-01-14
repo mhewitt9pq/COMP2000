@@ -13,9 +13,9 @@ public class Item
 
     public String name;
 
-    public int code;
+    public String code;
 
-    public int quantity;
+    public String quantity;
 
     public String price;
 
@@ -24,15 +24,6 @@ public class Item
     public String fileLocation = "Resources\\stock.txt";
     public String separator = "\\,";
     public final ArrayList<Item> stock = new ArrayList<>();
-
-    //Constructor
-//    public Item(int inCode, String inName, int inQuantity, double inPrice) {
-//        this.name = inName;
-//        this.code = inCode;
-//        this.quantity = inQuantity;
-//        this.price = inPrice;
-//
-//    }
 
     //Method to get all info about item excluding the code and return as string. To display on the kiosk.
     public String allInfo()
@@ -62,22 +53,22 @@ public class Item
         this.name = inName;
     }
 
-    public int getQuantity()
+    public String getQuantity()
     {
         return this.quantity;
     }
 
-    public void setQuantity(int inQuantity)
+    public void setQuantity(String inQuantity)
     {
         this.quantity = inQuantity;
     }
 
-    public int getCode()
+    public String getCode()
     {
         return this.code;
     }
 
-    public void setCode(int inCode)
+    public void setCode(String inCode)
     {
         this.code = inCode;
     }
@@ -113,9 +104,9 @@ public class Item
 
                 Item tItem = new Item();
 
-                tItem.setCode(Integer.parseInt(tArray[0]));
+                tItem.setCode(tArray[0]);
                 tItem.setName(tArray[1]);
-                tItem.setQuantity(Integer.parseInt(tArray[2]));
+                tItem.setQuantity(tArray[2]);
                 tItem.setPrice(tArray[3]);
                 stock.add(tItem);
 
